@@ -81,7 +81,81 @@ export const SessionView = ({
   };
 
   return (
-    <section className="bg-background relative z-10 h-full w-full overflow-hidden" {...props}>
+    <section
+      className="relative z-10 h-full w-full overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-black"
+      {...props}
+    >
+      {/* Cybersecurity Grid Background */}
+      <div className="absolute inset-0 opacity-5">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `
+            linear-gradient(rgba(6, 182, 212, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(6, 182, 212, 0.1) 1px, transparent 1px)
+          `,
+            backgroundSize: '40px 40px',
+          }}
+        ></div>
+      </div>
+
+      {/* Moving Cybersecurity Background */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        {/* Animated Data Streams */}
+        {[...Array(8)].map((_, i) => (
+          <div
+            key={`stream-${i}`}
+            className="animate-data-flow absolute w-px bg-gradient-to-b from-transparent via-cyan-400/30 to-transparent"
+            style={{
+              left: `${10 + i * 12}%`,
+              height: '100%',
+              animationDelay: `${i * 0.3}s`,
+            }}
+          />
+        ))}
+
+        {/* Floating Code Particles */}
+        {[...Array(15)].map((_, i) => (
+          <div
+            key={`particle-${i}`}
+            className="animate-code-float absolute font-mono text-sm text-cyan-400/20"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 2}s`,
+            }}
+          >
+            {['01', '10', '11', '00', 'FF', 'AA', '55', 'CC'][Math.floor(Math.random() * 8)]}
+          </div>
+        ))}
+
+        {/* Moving Hex Patterns */}
+        {[...Array(4)].map((_, i) => (
+          <div
+            key={`hex-${i}`}
+            className="animate-hex-rotate absolute h-6 w-6 border border-cyan-400/20"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${i * 2}s`,
+            }}
+          />
+        ))}
+
+        {/* Additional Moving Lines */}
+        {[...Array(3)].map((_, i) => (
+          <div
+            key={`line-${i}`}
+            className="absolute h-px animate-pulse bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent"
+            style={{
+              top: `${20 + i * 30}%`,
+              width: '100%',
+              animationDelay: `${i * 1.5}s`,
+            }}
+          />
+        ))}
+      </div>
+
       {/* Chat Transcript */}
       <div
         className={cn(
@@ -102,7 +176,7 @@ export const SessionView = ({
       {/* Tile Layout */}
       <TileLayout chatOpen={chatOpen} />
 
-      {/* Bottom */}
+      {/* Bottom Control Panel */}
       <MotionBottom
         {...BOTTOM_VIEW_MOTION_PROPS}
         className="fixed inset-x-3 bottom-0 z-50 md:inset-x-12"
@@ -110,9 +184,11 @@ export const SessionView = ({
         {appConfig.isPreConnectBufferEnabled && (
           <PreConnectMessage messages={messages} className="pb-4" />
         )}
-        <div className="bg-background relative mx-auto max-w-2xl pb-3 md:pb-12">
+        <div className="relative mx-auto max-w-2xl pb-3 md:pb-12">
           <Fade bottom className="absolute inset-x-0 top-0 h-4 -translate-y-full" />
-          <AgentControlBar controls={controls} onChatOpenChange={setChatOpen} />
+          <div className="rounded-2xl border border-slate-600/30 bg-slate-900/90 p-4 shadow-2xl backdrop-blur-sm">
+            <AgentControlBar controls={controls} onChatOpenChange={setChatOpen} />
+          </div>
         </div>
       </MotionBottom>
     </section>
